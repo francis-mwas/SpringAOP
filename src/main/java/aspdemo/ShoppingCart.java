@@ -10,4 +10,8 @@ public class ShoppingCart {
         //Sanitization
         System.out.println("Checkout method from shopping cart called");
     }
+
+    public int getQuantity(){
+        return 10;
+    }
 }

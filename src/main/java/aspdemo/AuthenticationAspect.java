@@ -21,11 +21,11 @@ public class AuthenticationAspect {
     * execute the point to to ShoppingCart class and all
     * the methods inside it
     * */
-    @Pointcut("within(aspdemo.ShoppingCart.*)")
+    @Pointcut("within(aspdemo..*)")
     public void authorizationPointCut(){}
 
     @Before("authenticatingPointCut() && authorizationPointCut()")
     public void authenticate(){
-        System.out.println("Authenticating and Authorizing the request the request");
+        System.out.println("Authenticating and Authorizing the request");
     }
 }

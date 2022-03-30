@@ -1,8 +1,7 @@
 package aspdemo;
 
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -17,8 +16,10 @@ public class LoggingAspect {
      * @Before, makes this method to be called before the join point
      * */
     @Before("execution(* aspdemo.ShoppingCart.checkout(..))")
-    public void beforeLogger(){
-        System.out.println("Before logger");
+    public void beforeLogger(JoinPoint joinPoint){
+//        System.out.println(joinPoint.getSignature());
+        String args = joinPoint.getArgs()[0].toString();
+        System.out.println("Before logger with args: "+ args);
     }
     /*
     * The first star is for any return type
@@ -29,5 +30,15 @@ public class LoggingAspect {
     @After("execution(* *.*.checkout(..))")
     public void afterLogger(){
         System.out.println("After logger");
+    }
+
+    @Pointcut("execution(* aspdemo.ShoppingCart.getQuantity(..))")
+    public void afterReturningPointCut(){
+
+    }
+    @AfterReturning(pointcut = "afterReturningPointCut()"
+            ,returning = "retVal")
+    public void afterReturning(String retVal){
+        System.out.println("After Returning: "+ retVal);
     }
 }
